@@ -1,82 +1,63 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scream Games Store - Jogos de Pânico</title>
+    <title>GameStore | Sua Loja de Jogos Online</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
         <div class="container">
-            <h1>Scream Games Store</h1>
+            <h1>GameStore</h1>
             <nav>
-                <a href="#produtos">Produtos</a>
-                <a href="#">Carrinho (<span id="cart-count">0</span>)</a>
+                <ul>
+                    <li><a href="#">Início</a></li>
+                    <li><a href="#">Jogos</a></li>
+                    <li><a href="#">Promoções</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
             </nav>
         </div>
     </header>
 
-    <main>
-        <section id="hero">
-            <div class="hero-content">
-                <h2>Você Gosta de Jogos Assustadores?</h2>
-                <p>Os melhores jogos inspirados no universo do terror de Pânico estão aqui. Cuidado com o telefone!</p>
-                <a href="#produtos" class="btn">Ver Jogos</a>
+    <main class="container">
+        <h2>Novidades e Jogos em Destaque</h2>
+        <section class="game-list">
+            
+            <div class="game-card">
+                <img src="panico-poster.jpg" alt="Capa do Jogo Aventura Fantástica">
+                <h3>Aventura Fantástica</h3>
+                <p class="genre">RPG de Ação</p>
+                <p class="price">R$ 129,90</p>
+                <a href="#" class="btn-buy">Comprar</a>
             </div>
-        </section>
 
-        <section id="produtos" class="container">
-            <h2>Nossa Coleção do Gênero Terror</h2>
-            <div class="product-grid">
-                <div class="product-card" data-name="The Ghostface Legacy" data-price="199.90">
-                    <img src="panico-poster.jpg" alt="The Ghostface Legacy">
-                    <h3>The Ghostface Legacy</h3>
-                    <p class="price">R$ 199,90</p>
-                    <p>Sobreviva a noite na cidade de Woodsboro. Ação e mistério!</p>
-                    <button class="add-to-cart">Adicionar ao Carrinho</button>
-                </div>
-
-                <div class="product-card" data-name="Call from the Killer" data-price="129.50">
-                    <img src="images.jpeg" alt="Call from the Killer">
-                    <h3>Call from the Killer</h3>
-                    <p class="price">R$ 129,50</p>
-                    <p>Um jogo de investigação onde as chamadas telefônicas são pistas... ou armadilhas.</p>
-                    <button class="add-to-cart">Adicionar ao Carrinho</button>
-                </div>
-
-                <div class="product-card" data-name="Meta-Slasher VR" data-price="250.00">
-                    <img src="images (1).jpeg" alt="Meta-Slasher VR">
-                    <h3>Meta-Slasher VR</h3>
-                    <p class="price">R$ 250,00</p>
-                    <p>Experimente o terror em Realidade Virtual. Somente para os corajosos!</p>
-                    <button class="add-to-cart">Adicionar ao Carrinho</button>
-                </div>
+            <div class="game-card">
+                <img src="images.jpeg" alt="Capa do Jogo Corrida Extrema">
+                <h3>Corrida Extrema</h3>
+                <p class="genre">Simulador de Corrida</p>
+                <p class="price">R$ 89,90</p>
+                <a href="#" class="btn-buy">Comprar</a>
             </div>
-        </section>
+
+            <div class="game-card">
+                <img src="images (1).jpeg" alt="Capa do Jogo Estratégia de Guerra">
+                <h3>Estratégia de Guerra</h3>
+                <p class="genre">Estratégia em Tempo Real</p>
+                <p class="price">R$ 159,90</p>
+                <a href="#" class="btn-buy">Comprar</a>
+            </div>
+            
+            </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 Scream Games Store. Todos os direitos reservados. Fictício.</p>
+        <div class="container">
+            <p>&copy; 2025 GameStore. Todos os direitos reservados.</p>
+        </div>
     </footer>
 
-    <script src="script.js"></script>
 </body>
-</html><nav>
-    <a href="#">Carrinho (<span id="cart-count">0</span>)</a>
-    <span style="color: #ffcc00; margin-left: 15px;">Total: R$ <span id="cart-total">0.00</span></span>
-</nav><section id="produtos" class="container">
-    <h2>Nossa Coleção do Gênero Terror</h2>
-
-    <div class="filter-controls" style="margin-bottom: 20px; text-align: left;">
-        <label for="filter-price" style="font-weight: bold; color: #cc0000;">Filtro Rápido:</label>
-        <select id="filter-price" style="padding: 5px; background: #333; color: white; border: 1px solid #cc0000;">
-            <option value="all">Mostrar Todos</option>
-            <option value="promo">Em Promoção (Abaixo de R$ 150)</option>
-        </select>
-    </div>
-
-    <div class="product-grid">
-        </div>
-</section>
+</html>

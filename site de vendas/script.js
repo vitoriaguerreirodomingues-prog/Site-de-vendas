@@ -1,111 +1,114 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Seleciona todos os botões de 'Adicionar ao Carrinho'
-    const addToCartButtons = document.querySelectorAll('.add-to-cart');
-    // Seleciona o elemento que exibe a contagem do carrinho
-    const cartCountElement = document.getElementById('cart-count');
-    
-    let cartItemCount = 0; // Variável para armazenar a contagem de itens
+/**
+ * Jogo de Adivinhação de Número Simples
+ * script.js
+ */
 
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', (event) => {
-            // Encontra o card do produto pai do botão
-            const productCard = event.target.closest('.product-card');
-            
-            // Pega os dados do produto usando os atributos data-
-            const productName = productCard.getAttribute('data-name');
-            const productPrice = productCard.getAttribute('data-price');
+// 1. Definição das variáveis de estado do jogo
+let numeroSecreto;
+let tentativasRestantes = 10;
+let jogoAtivo = true;
 
-            // 1. Simulação da Lógica do Carrinho
-            cartItemCount++; // Incrementa a contagem de itens
-            cartCountElement.textContent = cartItemCount; // Atualiza o contador na interface
+// 2. Elementos do DOM (assumindo que existem IDs correspondentes no HTML)
+const inputAdivinha = document.getElementById('inputAdivinha');
+const botaoEnviar = document.getElementById('botaoEnviar');
+const resultadoDiv = document.getElementById('resultado');
+const tentativasSpan = document.getElementById('tentativas');
+const mensagemStatus = document.getElementById('mensagemStatus');
+const botaoNovoJogo = document.getElementById('botaoNovoJogo');
 
-            // 2. Feedback para o Usuário
-            alert(`"${productName}" (R$ ${productPrice}) foi adicionado ao seu carrinho! Contagem atual: ${cartItemCount}`);
-            
-            // Em um site real, você enviaria esses dados para um servidor
-            // ou armazenaria no LocalStorage/SessionStorage.
-        });
-    });
-});document.addEventListener('DOMContentLoaded', () => {
-    const addToCartButtons = document.querySelectorAll('.add-to-cart');
-    const cartCountElement = document.getElementById('cart-count');
-    const cartTotalElement = document.getElementById('cart-total'); // NOVO ELEMENTO
-    
-    // Armazenamento simulado do carrinho
-    let cart = [];
-    let cartItemCount = 0;
-    let cartTotalPrice = 0.00;
+/**
+ * Inicia um novo jogo: gera um número secreto e reseta o estado.
+ */
+function novoJogo() {
+    // Gera um número aleatório entre 1 e 100
+    numeroSecreto = Math.floor(Math.random() * 100) + 1;
+    tentativasRestantes = 10;
+    jogoAtivo = true;
 
-    // Função para atualizar a interface
-    function updateCartUI() {
-        cartCountElement.textContent = cartItemCount;
-        // Formata o total com duas casas decimais
-        cartTotalElement.textContent = cartTotalPrice.toFixed(2).replace('.', ','); 
+    // Reseta a interface
+    resultadoDiv.textContent = 'Tente adivinhar um número entre 1 e 100!';
+    tentativasSpan.textContent = tentativasRestantes;
+    mensagemStatus.textContent = '';
+    inputAdivinha.value = '';
+    inputAdivinha.disabled = false;
+    botaoEnviar.disabled = false;
+    botaoNovoJogo.style.display = 'none'; // Esconde o botão de Novo Jogo
+
+    console.log(`Novo jogo iniciado. Número secreto: ${numeroSecreto}`); // Apenas para debug
+}
+
+/**
+ * Lida com o palpite do jogador.
+ */
+function checarPalpite() {
+    if (!jogoAtivo) {
+        mensagemStatus.textContent = 'O jogo acabou. Clique em "Novo Jogo" para começar de novo.';
+        return;
     }
 
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', (event) => {
-            const productCard = event.target.closest('.product-card');
-            
-            // Pega os dados do produto e converte o preço para número
-            const productName = productCard.getAttribute('data-name');
-            const productPrice = parseFloat(productCard.getAttribute('data-price'));
+    // Pega e valida o palpite
+    const palpite = parseInt(inputAdivinha.value);
 
-            // 1. Lógica do Carrinho
-            cart.push({ name: productName, price: productPrice, quantity: 1 });
-            cartItemCount++; 
-            cartTotalPrice += productPrice;
+    if (isNaN(palpite) || palpite < 1 || palpite > 100) {
+        resultadoDiv.textContent = 'Por favor, insira um número válido entre 1 e 100.';
+        return;
+    }
 
-            // 2. Atualiza a interface
-            updateCartUI();
+    // Decrementa as tentativas
+    tentativasRestantes--;
+    tentativasSpan.textContent = tentativasRestantes;
 
-            // 3. Feedback para o Usuário
-            // Log no console para ver o carrinho
-            console.log("Carrinho Atual:", cart); 
-            
-            // Alerta mais informativo
-            alert(`✅ ${productName} adicionado! Total da Compra: R$ ${cartTotalPrice.toFixed(2).replace('.', ',')}`);
-        });
-    });
-});// ... dentro do addEventListener
-        
-    // 2. Atualiza a interface (updateCartUI());
-    updateCartUI();
+    // Lógica do jogo
+    if (palpite === numeroSecreto) {
+        // Venceu
+        resultadoDiv.textContent = `🎉 Parabéns! Você acertou o número ${numeroSecreto}!`;
+        mensagemStatus.textContent = `Você venceu em ${10 - tentativasRestantes} tentativas.`;
+        finalizarJogo(true);
+    } else if (tentativasRestantes === 0) {
+        // Perdeu
+        resultadoDiv.textContent = `💔 Game Over! O número era ${numeroSecreto}.`;
+        mensagemStatus.textContent = 'Você esgotou suas tentativas.';
+        finalizarJogo(false);
+    } else {
+        // Continua o jogo (dá dica)
+        if (palpite < numeroSecreto) {
+            resultadoDiv.textContent = 'Seu palpite está muito baixo! ⬆️ Tente um número maior.';
+        } else {
+            resultadoDiv.textContent = 'Seu palpite está muito alto! ⬇️ Tente um número menor.';
+        }
+    }
 
-    // 3. Efeito Visual de Destaque (NOVO)
-    productCard.classList.add('added');
-    
-    // Remove o destaque após 1 segundo (1000 milissegundos)
-    setTimeout(() => {
-        productCard.classList.remove('added');
-    }, 1000);
+    // Limpa o input
+    inputAdivinha.value = '';
+    inputAdivinha.focus();
+}
 
-    // 4. Feedback para o Usuário
-    alert(`✅ ${productName} adicionado! Total da Compra: R$ ${cartTotalPrice.toFixed(2).replace('.', ',')}`);
-// ...document.addEventListener('DOMContentLoaded', () => {
-    // ... (Mantenha todo o código anterior do Carrinho) ...
-    
-    // NOVO: Lógica de Filtro
-    const filterSelect = document.getElementById('filter-price');
-    const productCards = document.querySelectorAll('.product-card');
+/**
+ * Finaliza o jogo, desabilitando os controles.
+ * @param {boolean} vitoria - Se o jogador venceu (true) ou perdeu (false).
+ */
+function finalizarJogo(vitoria) {
+    jogoAtivo = false;
+    inputAdivinha.disabled = true;
+    botaoEnviar.disabled = true;
+    botaoNovoJogo.style.display = 'block'; // Mostra o botão de Novo Jogo
+}
 
-    filterSelect.addEventListener('change', (event) => {
-        const selectedValue = event.target.value;
+// 3. Configuração dos Event Listeners
 
-        productCards.forEach(card => {
-            const price = parseFloat(card.getAttribute('data-price'));
-            
-            if (selectedValue === 'all') {
-                // Se for "Mostrar Todos", exibe o card
-                card.style.display = 'block'; 
-            } else if (selectedValue === 'promo') {
-                // Se for "Em Promoção" (preço < 150)
-                if (price < 150.00) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none'; // Oculta o card
-                }
-            }
-        });
-    });
+// Listener para o botão de envio
+botaoEnviar.addEventListener('click', checarPalpite);
+
+// Listener para permitir que o Enter submeta o palpite no campo de input
+inputAdivinha.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        checarPalpite();
+    }
 });
+
+// Listener para o botão de novo jogo
+botaoNovoJogo.addEventListener('click', novoJogo);
+
+// 4. Inicialização do Jogo
+// O jogo começa automaticamente quando o script é carregado
+document.addEventListener('DOMContentLoaded', novoJogo);

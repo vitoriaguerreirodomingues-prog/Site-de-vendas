@@ -1,7 +1,7 @@
-/* Importação de Fonte */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Creepster&display=swap');
+/* Importação de uma fonte (opcional) */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-/* Reset Básico */
+/* Estilos Globais e Reset Básico */
 * {
     margin: 0;
     padding: 0;
@@ -10,22 +10,22 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #1a1a1a; /* Fundo escuro */
-    color: #ffffff; /* Texto branco */
+    background-color: #121212; /* Fundo escuro */
+    color: #f0f0f0; /* Cor do texto claro */
     line-height: 1.6;
 }
 
 .container {
-    width: 90%;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 
-/* --- Cabeçalho (Header) --- */
+/* --- Cabeçalho --- */
 header {
-    background-color: #000000; /* Preto total */
+    background-color: #1f1f1f; /* Fundo do cabeçalho */
     padding: 15px 0;
-    border-bottom: 3px solid #cc0000; /* Detalhe em vermelho sangue */
+    border-bottom: 2px solid #ff4500; /* Linha de destaque (laranja/vermelho escuro) */
 }
 
 header .container {
@@ -35,151 +35,114 @@ header .container {
 }
 
 header h1 {
-    font-family: 'Creepster', cursive; /* Fonte temática de terror */
-    color: #cc0000;
-    font-size: 2.5em;
-    letter-spacing: 2px;
+    color: #ff4500;
+    font-size: 2em;
 }
 
-nav a {
-    color: #ffffff;
-    text-decoration: none;
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
     margin-left: 20px;
-    font-weight: bold;
+}
+
+nav ul li a {
+    color: #f0f0f0;
+    text-decoration: none;
+    font-weight: 700;
     transition: color 0.3s;
 }
 
-nav a:hover {
-    color: #cc0000;
+nav ul li a:hover {
+    color: #ff4500;
 }
 
-/* --- Seção de Destaque (Hero) --- */
-#hero {
-    background: url('https://via.placeholder.com/1200x500?text=Terror+e+Mist%C3%A9rio') no-repeat center center/cover;
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* --- Seção Principal/Jogos --- */
+main {
+    padding: 40px 0;
+}
+
+main h2 {
     text-align: center;
-    position: relative;
-    z-index: 1;
+    margin-bottom: 30px;
+    color: #ff4500;
 }
 
-#hero::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
+.game-list {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os cards quebrem a linha */
+    gap: 30px; /* Espaçamento entre os cards */
+    justify-content: center;
+}
+
+.game-card {
+    background-color: #1f1f1f;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    width: 300px; /* Largura fixa para os cards */
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.game-card:hover {
+    transform: translateY(-5px); /* Efeito de elevação */
+    box-shadow: 0 6px 12px rgba(255, 69, 0, 0.5); /* Sombra destacada na cor principal */
+}
+
+.game-card img {
     width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Overlay escuro */
-    z-index: -1;
+    height: auto;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    object-fit: cover; /* Garante que a imagem cubra o espaço sem distorcer */
 }
 
-.hero-content h2 {
-    font-size: 3em;
-    margin-bottom: 10px;
-    color: #fff;
-    text-shadow: 2px 2px 4px #000;
-}
-
-.hero-content p {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-}
-
-.btn {
-    display: inline-block;
-    background-color: #cc0000;
+.game-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 5px;
     color: #ffffff;
+}
+
+.game-card .genre {
+    color: #aaa;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.game-card .price {
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #4CAF50; /* Cor de preço verde */
+    margin-bottom: 15px;
+}
+
+.btn-buy {
+    display: inline-block;
+    background-color: #ff4500;
+    color: white;
     padding: 10px 20px;
     text-decoration: none;
     border-radius: 5px;
-    font-weight: bold;
+    font-weight: 700;
     transition: background-color 0.3s;
 }
 
-.btn:hover {
-    background-color: #ff3333;
+.btn-buy:hover {
+    background-color: #cc3700;
 }
 
-/* --- Seção de Produtos --- */
-#produtos {
-    padding: 40px 0;
-    text-align: center;
-}
-
-#produtos h2 {
-    font-family: 'Creepster', cursive;
-    font-size: 2.5em;
-    color: #cc0000;
-    margin-bottom: 30px;
-}
-
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-.product-card {
-    background-color: #333333;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(204, 0, 0, 0.4); /* Sombra temática */
-    transition: transform 0.3s;
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-}
-
-.product-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    border: 1px solid #cc0000;
-}
-
-.product-card h3 {
-    color: #fff;
-    margin-bottom: 10px;
-}
-
-.product-card .price {
-    color: #ffcc00; /* Destaque para o preço */
-    font-size: 1.4em;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.add-to-cart {
-    background-color: #cc0000;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
-}
-
-.add-to-cart:hover {
-    background-color: #990000;
-}
-
-/* --- Rodapé (Footer) --- */
+/* --- Rodapé --- */
 footer {
-    background-color: #000000;
+    background-color: #1f1f1f;
+    padding: 20px 0;
     text-align: center;
-    padding: 15px 0;
-    border-top: 3px solid #cc0000;
-    color: #aaaaaa;
+    border-top: 1px solid #333;
+}
+
+footer p {
+    color: #aaa;
     font-size: 0.9em;
-}/* NOVO ESTILO: Efeito de destaque */
-.product-card.added {
-    border: 3px solid #ffcc00; /* Borda amarela/dourada */
-    box-shadow: 0 0 20px #ffcc00;
-    transition: all 0.5s ease-out;
 }
